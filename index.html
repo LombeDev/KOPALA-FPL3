@@ -1,1 +1,160 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOPALA FPL Dashboard</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/png" href="favicon.png"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+</head>
+<body>
 
+<div id="loading-overlay">
+    <h1>KOPALA FPL</h1>
+    <p>abana FPL 😎...</p>
+    <div class="loader"></div> 
+</div>
+
+<button id="themeToggle">🌙</button>
+
+<div id="top-nav-bar">
+    <div class="nav-container">
+        <div class="social-icons">
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <div class="search-login-actions">
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+            <button class="signin-btn">Sign up</button>
+        </div>
+    </div>
+</div>
+
+<nav id="bottom-nav-bar">
+    <div class="nav-container">
+        <div class="logo-area">
+            <span class="fpl-logo">KOPALA FPL</span> 
+        </div>
+        
+        <ul class="main-links">
+    <li><a href="#standings">Live Rank</a></li>
+    <li><a href="#fixtures-list">EPL Live</a></li>
+    <li><a href="#price-changes-list">Prices</a></li>
+    <li><a href="#most-transferred-list">Transfers</a></li>
+    <li><a href="#most-captained-list">Captains</a></li>
+    <li><a href="more.html">Tools</a></li>
+        </ul>
+    </li>
+    </ul>
+    </div>
+</nav>
+   
+<main>
+      <hr>
+    
+   <section id="deadline-section" class="fpl-section">
+    <h2 class="countdown-title">Loading Deadline...</h2>
+    
+    <div id="countdown-timer" class="countdown-display">
+        <p>Fetching next deadline time...</p>
+    </div>
+</section>
+    
+    <section id="welcome" class="lazy">
+    
+    <p>
+A collection of tools that will help you <span class="highlight-accent">level up your FPL game</span>. We provide consolidated, fast access to:
+    </p>
+    <ul>
+<li>🏆 **Mini-League Ranks:** See who's rising and falling instantly.</li>
+      <li>📈 **Transfer Activity:** Track price changes and popular moves in real-time.</li>
+      <li>⚽ **Live Fixtures:** Follow goals, assists, and cards as they happen.</li>
+    </ul>
+    
+    <p>
+Players in green are **<span class="price-riser">Risers</span>** and red are **<span class="price-faller">Fallers</span>**. Scroll down to get started!
+    </p>
+        <li>On the nav bar swipe to the left for you to see more options.</li>
+    
+  </section>
+  <section id="standings" class="lazy"> 
+    <h2>🏆 Kopala FPL</h2>
+    <div id="standings-list">
+      <div style="text-align: center; padding: 20px 0;">
+        <div class="loader"></div>
+        <p style="color: var(--subtext); margin-top: 15px; font-size: 14px;">Loading latest league data...</p>
+      </div>
+    </div>
+  </section>
+
+     <section id="cup" class="lazy"> 
+    <h2>🏆 Kopala FPL CUP</h2>
+    <div id="standings-list">
+      <div style="text-align: center; padding: 20px 0;">
+        <div class="loader"></div>
+          <p>The Cup is scheduled to start in GW34,Fixtures will be determined at the end of Gameweek 33. If there are 32 teams in the associated league, then each team will have an opponent in Gameweek 34. If there are between 17 and 31 teams in the league, some teams will receive a bye in Gameweek 34 based on their score in Gameweek 33.</p>
+        <p style="color: var(--subtext); margin-top: 15px; font-size: 14px;">Loading latest league data...</p>
+      </div>
+    </div>
+   </section>
+
+  <section class="lazy">
+    <h2>Current Gameweek Scores</h2>
+    <p>Live scores and results for the latest Fantasy Premier League Gameweek.</p>
+    <div id="fixtures-list"><div class="loader"></div></div>
+  </section>
+
+  <section class="lazy">
+    <h2>FPL Price Changes</h2>
+    <p>Recent price risers and fallers based on transfer activity.</p>
+    <div id="price-changes-list"><div class="loader"></div></div>
+  </section>
+  
+  <section class="lazy">
+    <h2>Most Transferred In</h2>
+    <p>The top 10 players by transfers in since the last Gameweek deadline.</p>
+    <div id="most-transferred-list"><div class="loader"></div></div>
+  </section>
+
+  <section class="lazy">
+    <h2>Most Transferred Out</h2>
+    <p>The top 10 players by transfers out since the last Gameweek deadline.</p>
+    <div id="most-transferred-out-list"><div class="loader"></div></div>
+  </section>
+
+  <section class="lazy">
+    <h2>Most Captained </h2>
+    <p>The player with the highest captaincy percentage for the current Gameweek.</p>
+    <div id="most-captained-list"><div class="loader"></div></div>
+  </section>
+
+<section>
+    <h2>⚠️ Team News</h2>
+    <p>injured/suspended</p>
+    <div class="search-container">
+        <input type="text" id="statusSearch" placeholder="Search player or injury status..." aria-label="Search Player Status">
+    </div>
+    <div id="status-list"><div class="loader"></div></div>
+  </section>
+    
+</main>
+
+<button id="backToTop">🚀</button>
+
+<footer>
+    <p>&copy; 2026 KOPALA FPL</p>
+    <div class="social-links">
+        <a href="https://twitter.com/YourTwitterHandle" target="_blank" aria-label="Follow us on X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://facebook.com/YourFacebookPage" target="_blank" aria-label="Follow us on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="mailto: lombeicloud@gmail.com" aria-label="Email us"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+    <p class="disclaimer">Data provided by Fantasy Premier League API and The Sports DB. Not officially affiliated with the Premier League.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
