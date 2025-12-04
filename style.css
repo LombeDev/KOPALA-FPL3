@@ -106,29 +106,36 @@ main {
     border-top-color: var(--primary-color);
     grid-column: 1 / 2; /* Locks it to the first column */
     grid-row: 1 / span 2; /* Span two rows */
-}
-/* DEADLINE section needs to be positioned below #welcome in the first column */
-#deadline-section {
-    border-top-color: var(--accent-color);
-    grid-column: 1 / 2;
-    /* This needs to be explicitly placed at row 3 or later if you have content filling row 2 */
+    min-height: 500px; /* Ensure it's tall enough for the two rows */
 }
 
-/* BONUS (Middle Top) - Use a new ID/Class if needed, using #bonus-section placeholder */
+/* #bonus-section (Now empty in HTML, but styled for layout) */
+/* We need to ensure it takes up column 2, row 1 */
 #bonus-section {
     grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    border-top-color: var(--border-color);
+    min-height: 200px; /* Placeholder minimum height */
+}
+
+/* #live-rank-section (Takes up column 3, row 1) */
+#live-rank-section {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
     border-top-color: var(--border-color);
 }
 
-/* LIVE RANK (Right Top) - Using a new ID/Class if needed, using #live-rank-section placeholder */
-#live-rank-section {
-    grid-column: 3 / 4;
-    border-top-color: var(--border-color);
+/* #deadline-section (Sits below #bonus-section, taking up column 2, row 2) */
+#deadline-section {
+    border-top-color: var(--accent-color);
+    grid-column: 2 / 4; /* Spans columns 2 and 3 */
+    grid-row: 2 / 3;
+    text-align: center; /* Center content like in the image */
 }
 
 /* --- 5. Component Styling --- */
 
-/* Card Header Icons (Used on #welcome, #bonus-section, #live-rank-section, and #deadline-section) */
+/* Card Header Icons (Used on all top sections) */
 .card-actions {
     position: absolute;
     top: 10px;
@@ -147,23 +154,14 @@ main {
 .card-actions .fa-square-check { color: var(--accent-color); border-color: var(--accent-color); }
 .card-actions .fa-xmark { color: var(--primary-color); border-color: var(--primary-color); }
 
-/* #welcome Feature List */
-#welcome ul { list-style: none; padding: 0; margin: 10px 0 20px 0; }
-#welcome ul li { padding: 8px 0; display: flex; align-items: center; font-weight: 500; border-bottom: 1px dashed var(--border-color); }
-#welcome ul li:last-child { border-bottom: none; }
-#welcome ul li i { font-size: 1.1rem; margin-right: 10px; min-width: 20px; }
-.fa-circle-xmark { color: var(--primary-color); }
-.fa-star { color: var(--fpl-yellow); }
-
-.subscribe-btn { background-color: var(--primary-color); color: white; border: none; border-radius: var(--border-radius-button); padding: 10px 15px; font-size: 1rem; cursor: pointer; text-transform: uppercase; font-weight: bold; display: block; width: 100%; margin-top: 15px; }
-
-/* BONUS Section Components (Assuming your HTML has these classes now) */
-.header-strip { background-color: var(--accent-color); color: var(--text-primary); text-align: center; padding: 8px 15px; font-weight: bold; border-radius: var(--border-radius-button); margin: 10px -20px 20px -20px; box-shadow: var(--shadow-subtle); }
-.player-score-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dotted var(--border-color); }
-.rank-indicator { width: 18px; height: 18px; border-radius: 3px; text-align: center; line-height: 18px; font-size: 0.75rem; font-weight: bold; color: white; margin-right: 8px; }
-.rank-1 { background-color: var(--fpl-yellow); }
-.rank-2 { background-color: var(--text-secondary); }
-.rank-3 { background-color: var(--fpl-orange); }
+/* #welcome Feature List & Button */
+#welcome ul { 
+    list-style: none; 
+    padding: 0; 
+    margin: 10px 0 20px 0; 
+}
+/* Styling for the subscribe button */
+.subscribe-btn { background-color: var(--primary-color); color: white; border: none; border-radius: var(--border-radius-button); padding: 10px 15px; font-size: 1rem; cursor: pointer; text-transform: uppercase; font-weight: bold; display: block; width: 100%; margin: 15px 0; }
 
 /* LIVE RANK Section Components */
 .rank-metrics { display: flex; justify-content: space-around; border: 1px solid var(--border-color); border-radius: var(--border-radius-button); overflow: hidden; margin-bottom: 20px; }
@@ -175,23 +173,15 @@ main {
 .reset-btn { background-color: var(--background-light); color: var(--text-primary); border: 1px solid var(--border-color); }
 .live-rank-footer { text-align: center; margin-top: 15px; font-size: 0.85rem; color: var(--text-secondary); }
 
-/* --- 6. Lower Dashboard Sections (All of these use the general .fpl-section style) --- */
+/* --- 6. Lower Dashboard Sections --- */
 
-#standings, 
-#cup, 
-#fixtures-list,
-#price-changes-list,
-#most-transferred-list,
-#most-transferred-out-list,
-#most-captained-list,
-#status-list {
-    /* These sections will now automatically inherit the card look */
-    border-top-color: var(--primary-color); /* Example: Give all lower sections the primary color accent */
-    /* They will flow automatically in the grid after the top row */
-    min-height: 150px; /* Ensures they look like cards even when loading */
+/* All lower sections (Standings, Cup, Transfers, etc.) */
+#standings, #cup, #current-gw-scores, #price-changes, #most-transferred-in, #most-transferred-out, #most-captained, #team-news {
+    border-top-color: var(--primary-color); 
+    min-height: 150px; 
 }
 
-/* Status Section Search Box */
+/* Team News Search Box */
 .search-container { margin-bottom: 20px; }
 #statusSearch {
     width: 100%;
