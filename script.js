@@ -5,8 +5,8 @@
 const proxy = "https://corsproxy.io/?"; 
 
 // Global variables initialized at the top
-let teamMap = {};    // Team ID -> Abbreviation (e.g., 1 -> 'ARS')
-let playerMap = {};  // Player ID -> Full Name
+let teamMap = {};   // Team ID -> Abbreviation (e.g., 1 -> 'ARS')
+let playerMap = {}; // Player ID -> Full Name
 let currentGameweekId = null;
 
 /* -----------------------------------------
@@ -120,7 +120,7 @@ lazyElements.forEach((el) => observer.observe(el));
 // On page load 
 window.addEventListener("DOMContentLoaded", () => {
     loadFPLBootstrapData(); // Initializes all FPL-dependent data
-    loadStandings();
+    loadStandings(); // Calls the wrapper function to load all leagues
 });
 
 /**
@@ -389,18 +389,32 @@ async function loadCurrentGameweekFixtures() {
     }
 }
 
+// ----------------------------------------------------
+// 🏆 NEW AND UPDATED STANDINGS FUNCTIONS
+// ----------------------------------------------------
 
-// MINI-LEAGUE STANDINGS
-async function loadStandings() {
-    const container = document.getElementById("standings-list");
+// Function to fetch and display standings for a specific league ID
+async function loadStandingsForLeague(leagueID, containerId) {
+    const container = document.getElementById(containerId);
     if (!container) return;
+    
+    // Create a specific container for this league to hold the title and results
+    const leagueDiv = document.createElement('div');
+    leagueDiv.classList.add('league-standings-block');
+    leagueDiv.innerHTML = `<h3 class="league-title">Loading League ${leagueID}...</h3><div class="standings-results" id="results-${leagueID}"></div>`;
+    container.appendChild(leagueDiv);
+    
+    const resultsContainer = document.getElementById(`results-${leagueID}`);
+
     try {
-        const leagueID = "101712";
         const data = await fetch(
             proxy + `https://fantasy.premierleague.com/api/leagues-classic/${leagueID}/standings/`
         ).then((r) => r.json());
 
-        container.innerHTML = "";
+        // Update the league name in the title
+        leagueDiv.querySelector('.league-title').textContent = `Standings: ${data.league.name} (ID: ${leagueID})`;
+        
+        resultsContainer.innerHTML = "";
         data.standings.results.forEach((team, index) => {
             setTimeout(() => {
                 let rankChangeIndicator = '';
@@ -425,14 +439,34 @@ async function loadStandings() {
                 else if (team.rank === 2) div.classList.add("second-rank");
                 else if (team.rank === 3) div.classList.add("third-rank");
 
-                container.appendChild(div);
+                resultsContainer.appendChild(div);
             }, index * 30);
         });
     } catch (err) {
-        console.error("Error loading standings:", err);
-        container.textContent = "Failed to load standings. Check league ID or proxy.";
+        console.error(`Error loading standings for League ${leagueID}:`, err);
+        leagueDiv.querySelector('.league-title').textContent = `Standings: League ID ${leagueID} (Failed to Load)`;
+        resultsContainer.textContent = "Failed to load standings. Check league ID or proxy.";
     }
 }
+
+// MINI-LEAGUE STANDINGS Wrapper
+// This function calls the loader for all desired leagues.
+async function loadStandings() {
+    const container = document.getElementById("standings-list");
+    if (!container) return;
+
+    // Clear the main container before loading both leagues
+    container.innerHTML = '';
+    
+    // 1. Load the Original League (101712)
+    await loadStandingsForLeague("101712", "standings-list");
+    
+    // 2. Load the New League (147133)
+    await loadStandingsForLeague("147133", "standings-list");
+}
+
+// ----------------------------------------------------
+// ----------------------------------------------------
 
 // 💰 FPL PRICE CHANGES 
 async function loadPriceChanges(data) {
