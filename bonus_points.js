@@ -1,11 +1,14 @@
 /* -----------------------------------------
     BONUS POINTS MODULE: bonus_points.js
-    A completely separate script to fetch and display the Top Bonus Point scorers.
-    It relies on the 'bps-list' container in the HTML.
+// ...
 ----------------------------------------- */
 
 // 🌐 CRITICAL: Proxy for CORS issues (using the stable one)
-const proxy = "https://corsproxy.io/?"; 
+// Change this:
+// const proxy = "https://corsproxy.io/?"; 
+
+// TO THIS:
+const proxy = "https://thingproxy.freeboard.io/fetch/";
 
 // Global maps to hold static data fetched from the bootstrap-static API
 let teamMap = {};    // Team ID -> Abbreviation (e.g., 1 -> 'ARS')
