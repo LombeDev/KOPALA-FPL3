@@ -66,3 +66,102 @@ section > :not(h2) {
 section > :last-child {
     padding-bottom: 20px; /* Add padding to the bottom of the last element */
 }
+
+
+/* --- Header/Navigation Styles --- */
+
+#main-header {
+    background-color: transparent; /* Top nav bar sits transparently over the gradient background */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Space out left, center, and right elements */
+    align-items: center;
+    max-width: 1200px; /* Optional: Constrain width like the rest of the content */
+    margin: 0 auto;
+}
+
+/* --- Navigation Buttons (Menu, Premium, Sign In) --- */
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    background-color: #fff; /* White background for buttons */
+    color: #333;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px; /* Slightly rounded corners */
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle lift */
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Special styling for the 'Premium' button to match the yellow/gold star look */
+.premium-style {
+    background-color: #ffc107; /* Yellow/Gold color */
+    color: #333;
+    /* Optional: Make the star icon stand out */
+}
+.premium-style i {
+    color: #333; /* Darker star icon */
+}
+
+/* --- Center Logo (The "F" in the image) --- */
+
+.header-center {
+    flex-grow: 1; /* Allow center to take up available space */
+    display: flex;
+    justify-content: center; /* Center the logo */
+}
+
+.fpl-logo-center {
+    background-color: #7d5fff; /* A distinct purple/blue background */
+    color: #fff;
+    font-size: 30px;
+    font-weight: 900;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Perfect circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Right Side Elements (Profile Icon and Sign In) --- */
+
+.profile-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    /* Recreate the spinning color circle effect with a gradient border/background */
+    background: conic-gradient(red, orange, yellow, green, blue, indigo, violet, red);
+    animation: spin 6s linear infinite; /* Optional spin effect */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.header-right .signin-btn {
+    /* Slightly less prominent Sign In button */
+    background-color: #fff; 
+    border: 1px solid #ddd;
+}
