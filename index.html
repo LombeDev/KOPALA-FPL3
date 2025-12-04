@@ -21,32 +21,56 @@
 
 <button id="themeToggle">🌙</button>
 
-<header id="main-header">
-    <div class="header-container">
-        <div class="header-left">
-            <button id="menu-btn" class="nav-btn">
-                <i class="fa-solid fa-bars"></i> Menu
-            </button>
+<div id="desktop-top-bar">
+    <div class="top-bar-container">
+        <div class="social-icons-desktop">
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#"><i class="fa-solid fa-microphone"></i></a>
+        </div>
+        <button class="search-btn-desktop"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    </div>
+</div>
+
+<header id="desktop-main-nav">
+    <div class="nav-container">
+        <div class="logo-area-desktop">
+            <span class="fpl-logo-desktop">FANTASY FOOTBALL SCOUT</span>
         </div>
 
-        <div class="header-right">
-            <button class="nav-btn signin-btn">
-                Sign In
-            </button>
-        </div>
+        <nav id="main-links-desktop">
+            <ul class="main-links">
+                <li><a href="#fpl-gw">FPL GW15</a></li>
+                <li><a href="#ucl">UCL Fantasy</a></li>
+                <li><a href="#efl">Fantasy EFL</a></li>
+                <li><a href="#other-games" class="has-dropdown">Other Games <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="#articles" class="has-dropdown">Articles <i class="fa-solid fa-chevron-down"></i></a></li>
+                <li><a href="#tools" class="has-dropdown">Tools <i class="fa-solid fa-chevron-down"></i></a></li>
+            </ul>
+        </nav>
     </div>
 </header>
-<nav id="dropdown-menu" style="display: none;">
-    <ul class="main-links">
-        <li><a href="#standings">Live Rank</a></li>
-        <li><a href="#fixtures-list">EPL Live</a></li>
-        <li><a href="#price-changes-list">Prices</a></li>
-        <li><a href="#most-transferred-list">Transfers</a></li>
-        <li><a href="#most-captained-list">Captains</a></li>
-        <li><a href="more.html">Tools</a></li>
-    </ul>
-</nav>
 
+<div id="mobile-nav-wrapper">
+    <header id="mobile-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button id="menu-btn" class="nav-btn"><i class="fa-solid fa-bars"></i> Menu</button>
+                <button id="premium-btn" class="nav-btn premium-style"><i class="fa-solid fa-star"></i> Premium</button>
+            </div>
+            <div class="header-center"><div class="fpl-logo-center">F</div></div>
+            <div class="header-right">
+                <div class="profile-icon"></div>
+                <button class="nav-btn signin-btn">Sign In</button>
+            </div>
+        </div>
+    </header>
+    <nav id="dropdown-menu" style="display: none;">
+        </nav>
+</div>
 <main>
 
     <section id="deadline-section" class="fpl-section">
