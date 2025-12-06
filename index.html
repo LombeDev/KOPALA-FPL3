@@ -3,68 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Bottom Nav</title>
+    <title>Next Premier League Fixtures</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
-    <main>
-        <section id="home" class="content-section">
-            <h2>🏠 Home</h2>
-            <p>Welcome to the main dashboard. Scroll down to see other sections.</p>
-            <div class="large-content">This section is all about your general overview.</div>
-        </section>
-
-        <section id="stats" class="content-section">
-            <h2>📊 Stats</h2>
-            <p>Key statistics for your team. This section covers player performance.</p>
-            <div class="large-content">Here is where all the data visualizations will be displayed.</div>
-        </section>
-
-        <section id="transfers" class="content-section">
-            <h2>🔄 Transfers</h2>
-            <p>Manage your transfers and view price changes. Planning your next move!</p>
-            <div class="large-content">A high-activity zone for squad adjustments and market info.</div>
-        </section>
-
-        <section id="fixtures" class="content-section">
-            <h2>🗓️ Fixtures</h2>
-            <p>See upcoming matches and past results. Get ready for the next Gameweek.</p>
-            <div class="large-content">A schedule view for all league matches.</div>
-        </section>
-    </main>
-
-    <nav id="bottom-nav">
-        <a href="#home" class="nav-item" data-id="home">
-            <i class="fas fa-home"></i>
-            <span class="nav-text">Home</span>
-            <div class="nav-highlight">
-                <span class="highlight-info" data-info="home">98 pts</span>
+    <div class="container">
+        <h1 id="gameweek-title">Loading Next Gameweek Fixtures...</h1>
+        <div id="fixtures-list">
             </div>
-        </a>
-        <a href="#stats" class="nav-item" data-id="stats">
-            <i class="fas fa-chart-line"></i>
-            <span class="nav-text">Stats</span>
-            <div class="nav-highlight">
-                <span class="highlight-info" data-info="stats">Rank: 12k</span>
-            </div>
-        </a>
-        <a href="#transfers" class="nav-item" data-id="transfers">
-            <i class="fas fa-people-arrows"></i>
-            <span class="nav-text">Transfers</span>
-            <div class="nav-highlight">
-                <span class="highlight-info" data-info="transfers">Free: 1</span>
-            </div>
-        </a>
-        <a href="#fixtures" class="nav-item" data-id="fixtures">
-            <i class="fas fa-calendar-alt"></i>
-            <span class="nav-text">Fixtures</span>
-            <div class="nav-highlight">
-                <span class="highlight-info" data-info="fixtures">GW: 15</span>
-            </div>
-        </a>
-    </nav>
+        <p class="loading-error" id="loading-error"></p>
+    </div>
 
     <script src="script.js"></script>
 </body>
