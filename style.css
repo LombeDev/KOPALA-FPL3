@@ -1,126 +1,130 @@
-/* Base Styling and Mobile View Simulation */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
-    background-color: #f0f2f5;
-    /* Ensure content is not hidden by the fixed nav */
-    padding-bottom: 70px; 
 }
 
-/* Scrollable Content Styling */
-main {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.content-section {
-    padding: 20px;
-    margin-bottom: 10px;
+.container {
     background-color: #ffffff;
+    padding: 20px 40px;
     border-radius: 8px;
-    min-height: 80vh; /* Ensures sections are tall enough to trigger scroll */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 700px; /* Slightly wider to accommodate logos */
 }
 
-.content-section h2 {
-    color: #37003C; /* FPL Purple */
-    margin-top: 0;
-}
-
-.large-content {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #e6e8eb;
-    border-radius: 4px;
+#gameweek-title {
+    color: #37003c; /* Premier League Purple */
     text-align: center;
-    font-size: 1.2em;
-    color: #555;
+    border-bottom: 2px solid #00ff85; /* Premier League Green */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* --- Bottom Navigation Bar Styles --- */
-#bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-around;
+/* --- Fixture Card Grid Layout --- */
+.fixture-card {
+    display: grid;
+    /* Team + Logo | Info | FDR | Team + Logo */
+    grid-template-columns: 3fr 1fr 0.5fr 3fr; 
+    gap: 10px;
     align-items: center;
-    height: 60px;
-    background-color: #37003C; /* FPL Accent */
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    z-index: 999;
-    padding: 0 5px;
+    background-color: #e9ecef;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }
 
-.nav-item {
+/* --- Team and Logo Styling --- */
+.team-unit {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #ffffff;
-    padding: 5px;
-    width: 25%;
-    transition: background-color 0.3s, color 0.3s;
-    position: relative; /* Needed for positioning the highlight */
-    overflow: hidden; /* Important to hide the highlight when not active */
 }
 
-.nav-item i {
-    font-size: 18px;
-    margin-bottom: 2px;
-    z-index: 10;
+.home-team {
+    justify-content: flex-start; 
 }
 
-.nav-text {
-    font-size: 10px;
-    font-weight: 600;
-    z-index: 10;
+.away-team {
+    justify-content: flex-end; 
 }
 
-/* Active State Styling */
-.nav-item.active {
-    color: #00FF85; /* Bright Green Accent */
+.team-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin: 0 10px;
 }
 
-/* --- Highlight Behavior Styling --- */
-
-.nav-highlight {
-    /* Position the highlight container right over the nav item */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    
-    /* Dark background for the info text */
-    background-color: rgba(0, 0, 0, 0.4); 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    /* Start position: Off-screen, pushed down */
-    transform: translateY(100%); 
-    transition: transform 0.4s ease-out;
-    z-index: 5;
-}
-
-.nav-item.active .nav-highlight {
-    /* Active position: Slide into view */
-    transform: translateY(0); 
-}
-
-.highlight-info {
-    font-size: 11px;
-    font-weight: 700;
-    color: #fff;
+.team-name {
+    font-weight: bold;
+    color: #333;
     white-space: nowrap;
-    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Hide the main icon/text when active for a cleaner highlight */
-.nav-item.active i,
-.nav-item.active .nav-text {
-    visibility: hidden;
+.away-team .team-name {
+    order: -1; /* Puts the name before the logo */
+}
+
+
+/* --- Match Info Styling --- */
+.match-info {
+    grid-column: 2 / span 1; 
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.vs-fdr { 
+    font-style: italic;
+    color: #6c757d;
+    display: block;
+    font-size: 1.1em;
+}
+
+.location { 
+    display: block;
+    font-weight: 500;
+    color: #495057;
+    margin: 3px 0;
+    font-size: 0.9em;
+}
+
+.date-time {
+    display: block;
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+/* --- FDR Badge Styling --- */
+.fdr-container {
+    grid-column: 3 / span 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fdr-badge {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.loading-error {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
 }
