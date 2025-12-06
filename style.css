@@ -1,3 +1,5 @@
+/* ... Keep basic styles for body, container, #gameweek-title ... */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -15,22 +17,23 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 700px; /* Slightly wider to accommodate logos */
+    max-width: 600px; /* Reverted max-width */
 }
 
 #gameweek-title {
-    color: #37003c; /* Premier League Purple */
+    color: #37003c;
     text-align: center;
-    border-bottom: 2px solid #00ff85; /* Premier League Green */
+    border-bottom: 2px solid #00ff85;
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
 
-/* --- Fixture Card Grid Layout --- */
+
+/* --- Fixture Card Grid Layout (Simplified) --- */
 .fixture-card {
     display: grid;
-    /* Team + Logo | Info | FDR | Team + Logo */
-    grid-template-columns: 3fr 1fr 0.5fr 3fr; 
+    /* Team Name | Info | FDR | Team Name */
+    grid-template-columns: 2fr 1fr 0.5fr 2fr; 
     gap: 10px;
     align-items: center;
     background-color: #e9ecef;
@@ -39,41 +42,30 @@ body {
     border-radius: 5px;
 }
 
-/* --- Team and Logo Styling --- */
-.team-unit {
-    display: flex;
-    align-items: center;
-}
-
-.home-team {
-    justify-content: flex-start; 
-}
-
-.away-team {
-    justify-content: flex-end; 
-}
-
-.team-logo {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-    margin: 0 10px;
-}
-
+/* --- Team Name Styling (Back to text-only focus) --- */
 .team-name {
     font-weight: bold;
     color: #333;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: left; /* Default alignment */
 }
 
-.away-team .team-name {
-    order: -1; /* Puts the name before the logo */
+/* Aligns the away team name to the right */
+.away-team {
+    text-align: right;
 }
 
+/* Remove unused logo styles
+.team-unit { display: flex; align-items: center; }
+.home-team { justify-content: flex-start; }
+.away-team { justify-content: flex-end; }
+.team-logo { ... }
+*/
 
-/* --- Match Info Styling --- */
+
+/* --- Match Info Styling (No major change) --- */
 .match-info {
     grid-column: 2 / span 1; 
     text-align: center;
@@ -101,7 +93,7 @@ body {
     color: #6c757d;
 }
 
-/* --- FDR Badge Styling --- */
+/* --- FDR Badge Styling (No major change) --- */
 .fdr-container {
     grid-column: 3 / span 1; 
     display: flex;
