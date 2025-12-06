@@ -1,10 +1,9 @@
 // --- Configuration and API Endpoints ---
 const BOOTSTRAP_URL = 'https://fantasy.premierleague.com/api/bootstrap-static/';
 const FIXTURES_URL = 'https://fantasy.premierleague.com/api/fixtures/';
-const LOGO_BASE_PATH = './logos/'; // IMPORTANT: Ensure your logo files are in a folder named 'logos'
-const LOGO_EXTENSION = '.png';    // IMPORTANT: Ensure your logo files use the correct extension (.png, .svg, etc.)
+// LOGO paths/extensions are no longer needed
 
-// --- Utility function to fetch JSON data ---
+// --- Utility function to fetch JSON data (No Change) ---
 async function fetchData(url) {
     try {
         const response = await fetch(url);
@@ -19,7 +18,7 @@ async function fetchData(url) {
     }
 }
 
-// --- Helper function to get the FDR color based on the rating (1=Easiest, 5=Hardest) ---
+// --- Helper function to get the FDR color based on the rating (No Change) ---
 function getFDRColor(rating) {
     if (rating <= 1) return '#00ff85'; // Easy (Green)
     if (rating === 2) return '#10a567';
@@ -33,15 +32,13 @@ function getFDRColor(rating) {
 async function getNextGameweekFixtures() {
     const fixturesListEl = document.getElementById('fixtures-list');
     const titleEl = document.getElementById('gameweek-title');
-    fixturesListEl.innerHTML = ''; // Clear previous content
+    fixturesListEl.innerHTML = '';
 
-    // 1. Fetch bootstrap data
     const bootstrapData = await fetchData(BOOTSTRAP_URL);
     if (!bootstrapData) return;
 
     const { events: gameweeks, teams } = bootstrapData;
 
-    // 2. Find the ID of the next gameweek
     const nextGameweek = gameweeks.find(gw => gw.is_next);
 
     if (!nextGameweek) {
@@ -52,23 +49,22 @@ async function getNextGameweekFixtures() {
     const nextGwId = nextGameweek.id;
     titleEl.textContent = `Premier League Fixtures: Gameweek ${nextGwId}`;
 
-    // 3. Create an ENRICHED map for team IDs to team data
+    // 1. Create the simplified map for team IDs to team data
     const teamNameMap = teams.reduce((map, team) => {
         map[team.id] = {
-            id: team.id,      // FPL Team ID (for logo URL)
             name: team.name, 
-            stadium: team.venue // Stadium name (location)
+            stadium: team.venue 
         };
         return map;
     }, {});
     
-    // 4. Fetch ALL fixtures
+    // 2. Fetch ALL fixtures
     const allFixtures = await fetchData(FIXTURES_URL);
     if (!allFixtures) return;
 
-    // 5. Filter and sort fixtures for the next gameweek
+    // 3. Filter and sort fixtures
     const nextGwFixtures = allFixtures
-        .filter(fixture => fixture.event === nextGwId && fixture.finished === false) // Ensure it's the next GW and not finished
+        .filter(fixture => fixture.event === nextGwId && fixture.finished === false)
         .sort((a, b) => new Date(a.kickoff_time) - new Date(b.kickoff_time));
 
     if (nextGwFixtures.length === 0) {
@@ -76,20 +72,15 @@ async function getNextGameweekFixtures() {
         return;
     }
 
-    // 6. Render the fixtures
+    // 4. Render the fixtures without logos
     nextGwFixtures.forEach(fixture => {
         const homeTeamData = teamNameMap[fixture.team_h];
         const awayTeamData = teamNameMap[fixture.team_a];
         
         const location = homeTeamData.stadium;
         
-        // FDR for the home team (team_h) is generally the primary difficulty rating
         const fdr = fixture.team_h_difficulty; 
         const fdrColor = getFDRColor(fdr);
-
-        // Construct logo paths
-        const homeLogoPath = `${LOGO_BASE_PATH}${homeTeamData.id}${LOGO_EXTENSION}`;
-        const awayLogoPath = `${LOGO_BASE_PATH}${awayTeamData.id}${LOGO_EXTENSION}`;
 
         // Format the kickoff time
         const kickoffTime = new Date(fixture.kickoff_time);
@@ -99,14 +90,11 @@ async function getNextGameweekFixtures() {
         const dateStr = kickoffTime.toLocaleDateString('en-GB', dateOptions);
         const timeStr = kickoffTime.toLocaleTimeString('en-GB', timeOptions);
 
-        // Create the HTML element
+        // Create the HTML element using the simplified structure
         const fixtureCard = document.createElement('div');
         fixtureCard.className = 'fixture-card';
         fixtureCard.innerHTML = `
-            <div class="team-unit home-team">
-                <img src="${homeLogoPath}" onerror="this.onerror=null; this.src='';" alt="${homeTeamData.name} Logo" class="team-logo">
-                <span class="team-name">${homeTeamData.name}</span>
-            </div>
+            <span class="team-name home-team">${homeTeamData.name}</span>
             
             <div class="match-info">
                 <span class="vs-fdr">vs</span>
@@ -118,10 +106,7 @@ async function getNextGameweekFixtures() {
                 <span class="fdr-badge" style="background-color: ${fdrColor};">${fdr}</span>
             </div>
             
-            <div class="team-unit away-team">
-                <span class="team-name">${awayTeamData.name}</span>
-                <img src="${awayLogoPath}" onerror="this.onerror=null; this.src='';" alt="${awayTeamData.name} Logo" class="team-logo">
-            </div>
+            <span class="team-name away-team">${awayTeamData.name}</span>
         `;
         
         fixturesListEl.appendChild(fixtureCard);
