@@ -1,122 +1,77 @@
-/* ... Keep basic styles for body, container, #gameweek-title ... */
-
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
-.container {
-    background-color: #ffffff;
-    padding: 20px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 600px; /* Reverted max-width */
-}
-
-#gameweek-title {
-    color: #37003c;
+header {
+    background-color: #01ff70; /* FPL green */
+    color: #000;
+    padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #00ff85;
-    padding-bottom: 10px;
     margin-bottom: 20px;
 }
 
+#fixtures-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
 
-/* --- Fixture Card Grid Layout (Simplified) --- */
-.fixture-card {
-    display: grid;
-    /* Team Name | Info | FDR | Team Name */
-    grid-template-columns: 2fr 1fr 0.5fr 2fr; 
-    gap: 10px;
-    align-items: center;
-    background-color: #e9ecef;
+/* Fixture Card Styling */
+.fixture {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gameweek {
+    font-size: 1.2em;
+    color: #00a653; /* Darker FPL green */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 0;
     margin-bottom: 10px;
-    border-radius: 5px;
 }
 
-/* --- Team Name Styling (Back to text-only focus) --- */
-.team-name {
-    font-weight: bold;
-    color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left; /* Default alignment */
-}
-
-/* Aligns the away team name to the right */
-.away-team {
-    text-align: right;
-}
-
-/* Remove unused logo styles
-.team-unit { display: flex; align-items: center; }
-.home-team { justify-content: flex-start; }
-.away-team { justify-content: flex-end; }
-.team-logo { ... }
-*/
-
-
-/* --- Match Info Styling (No major change) --- */
-.match-info {
-    grid-column: 2 / span 1; 
-    text-align: center;
-    font-size: 0.9em;
-}
-
-.vs-fdr { 
-    font-style: italic;
-    color: #6c757d;
-    display: block;
-    font-size: 1.1em;
-}
-
-.location { 
-    display: block;
-    font-weight: 500;
-    color: #495057;
-    margin: 3px 0;
-    font-size: 0.9em;
-}
-
-.date-time {
-    display: block;
-    font-size: 0.8em;
-    color: #6c757d;
-}
-
-/* --- FDR Badge Styling (No major change) --- */
-.fdr-container {
-    grid-column: 3 / span 1; 
+.matchup {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
-.fdr-badge {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
-    border-radius: 50%;
-    text-align: center;
-    color: white;
-    font-weight: bold;
+.team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.separator {
+    color: #666;
     font-size: 0.9em;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
 }
 
-.loading-error {
-    color: red;
+/* FDR Badge Styling */
+.fdr-score {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white; /* Text color for the badge */
+    min-width: 20px;
     text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
 }
+
+/* Color Coding the FDR */
+.fdr-1 { background-color: #00ff85; } /* Easiest - Bright Green */
+.fdr-2 { background-color: #00f3ff; } /* Easier - Light Blue */
+.fdr-3 { background-color: #ffe800; } /* Neutral - Yellow/Gold */
+.fdr-4 { background-color: #ff9300; } /* Harder - Orange */
+.fdr-5 { background-color: #ff0000; } /* Hardest - Red */
