@@ -1,16 +1,22 @@
 // --- API Endpoints ---
-const BASE_URL = "https://fantasy.premierleague.com/api/";
-const FIXTURES_ENDPOINT = "fixtures/";
-const BOOTSTRAP_ENDPOINT = "bootstrap-static/";
+// OLD: const BASE_URL = "https://fantasy.premierleague.com/api/";
+// NEW: The BASE_URL is now your own domain, so we can make it empty 
+//      or point to the root, but let's change the endpoint variables.
+const BASE_URL = ""; // We will build the path in the function call
+
+// Use the new local proxy paths defined in _redirects
+const FIXTURES_ENDPOINT = "/api/fpl/fixtures/"; 
+const BOOTSTRAP_ENDPOINT = "/api/fpl/bootstrap/"; 
 
 /**
  * Fetches JSON data from a given FPL API endpoint.
- * @param {string} endpoint The specific API path.
+ * @param {string} endpoint The specific API path (e.g., /api/fpl/fixtures/).
  * @returns {Promise<object | null>} The JSON data or null on error.
  */
 async function getFplData(endpoint) {
     try {
-        const response = await fetch(BASE_URL + endpoint);
+        // The endpoint already contains the full path including /api/fpl/...
+        const response = await fetch(endpoint); // <-- Updated to use the endpoint directly
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -20,6 +26,8 @@ async function getFplData(endpoint) {
         return null;
     }
 }
+
+// ... rest of the script remains the same ...
 
 /**
  * Creates a map from team IDs to team names.
