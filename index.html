@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPL Fixture Difficulty Rating</title>
+    <title>FPL Fixture Difficulty Ticker</title>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
 
     <header>
-        <h1>Upcoming FPL Fixtures & Difficulty</h1>
+        <h1>FPL Fixture Difficulty Ticker</h1>
     </header>
+
+    <div id="filter-container">
+        <label for="team-search">Filter Teams:</label>
+        <input type="text" id="team-search" placeholder="Type team name (e.g., Liverpool)">
+    </div>
 
     <main id="fixtures-container">
         <p>Loading fixtures data...</p>
