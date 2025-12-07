@@ -67,49 +67,61 @@
 }
 
 
-/* --- FDR Block Styles (The core visual element) --- */
+/* --- FDR Block Styles (Core Look - Keep these) --- */
 .fdr-block {
-    /* Dimensions and shape */
+    /* ... (Keep the existing height, padding, and center properties) ... */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 5px 0; /* Vertical padding within the block */
+    padding: 5px 0; 
     box-sizing: border-box; 
-    
-    /* Look and Feel */
     font-weight: 600;
     font-size: 0.85em;
-    border-radius: 4px; /* Slightly rounded edges */
+    border-radius: 4px;
     text-align: center;
-    color: white; 
-    
-    /* Center the block within the cell */
     margin: 0 auto; 
+    /* color property will be set specifically in each fdr-X class */
 }
 
-/* --- Color Coding (Same as before, adapted for the block) --- */
+/* --- OFFICIAL FPL Color Coding --- */
 
+/* 1 (Easiest - Very Light Green) */
 .fdr-1 { 
-    background-color: #00ff85; 
-    color: #000; 
+    background-color: #00ff85; /* FPL Brightest Green */
+    color: #000; /* Black text for high contrast */
 } 
 
+/* 2 (Easier - Medium Green) */
 .fdr-2 { 
-    background-color: #00f3ff;
-    color: #000; 
+    background-color: #00f3ff; /* FPL Cyan/Light Blue-Green */
+    color: #000; /* Black text for high contrast */
 } 
 
+/* 3 (Neutral - Yellow/Grayish) */
 .fdr-3 { 
-    background-color: #ffe800;
-    color: #000; 
+    background-color: #ffe800; /* FPL Yellow/Gold */
+    color: #000; /* Black text for high contrast */
 } 
 
+/* 4 (Harder - Orange) */
 .fdr-4 { 
-    background-color: #ff9300;
+    background-color: #ff9300; /* FPL Orange */
+    color: #fff; /* White text */
 } 
 
+/* 5 (Hardest - Red) */
 .fdr-5 { 
-    background-color: #ff0000;
+    background-color: #ff0000; /* FPL Bright Red */
+    color: #fff; /* White text */
+}
+
+/* Optional: To make the cell borders blend into the blocks */
+.fixture-ticker td {
+    padding: 2px;
+    border: 1px solid #ddd; /* Keep this border subtle */
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
 }
