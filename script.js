@@ -1,89 +1,112 @@
-// --- New Local Proxy Endpoint ---
-const PROXY_URL = '/api/fixtures/'; 
+// --- API Endpoints ---
+const BASE_URL = "https://fantasy.premierleague.com/api/";
+const FIXTURES_ENDPOINT = "fixtures/";
+const BOOTSTRAP_ENDPOINT = "bootstrap-static/";
 
-// --- Utility function (Simplified for local calls) ---
-async function fetchData(url) {
+/**
+ * Fetches JSON data from a given FPL API endpoint.
+ * @param {string} endpoint The specific API path.
+ * @returns {Promise<object | null>} The JSON data or null on error.
+ */
+async function getFplData(endpoint) {
     try {
-        // No custom headers needed here, as we are calling our own server
-        const response = await fetch(url); 
+        const response = await fetch(BASE_URL + endpoint);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return await response.json();
-    } catch (error) {
-        console.error('Fetch error:', error);
-        document.getElementById('loading-error').textContent = 'Error fetching data from proxy. Check console for details or redeploy Netlify function.';
+        return response.json();
+    } catch (e) {
+        console.error(`Error fetching data from ${endpoint}:`, e);
         return null;
     }
 }
 
-// --- Helper function to get the FDR color (No Change) ---
-function getFDRColor(rating) {
-    if (rating <= 1) return '#00ff85'; 
-    if (rating === 2) return '#10a567';
-    if (rating === 3) return '#ffc107'; 
-    if (rating === 4) return '#ff8500';
-    if (rating >= 5) return '#dc3545';
-    return '#6c757d';
+/**
+ * Creates a map from team IDs to team names.
+ * @param {object} bootstrapData The data from the bootstrap-static endpoint.
+ * @returns {Map<number, string>} A map of Team ID -> Team Name.
+ */
+function createTeamMap(bootstrapData) {
+    const teamMap = new Map();
+    if (bootstrapData && bootstrapData.teams) {
+        bootstrapData.teams.forEach(team => {
+            // Using 'name' for the full team name
+            teamMap.set(team.id, team.name); 
+        });
+    }
+    return teamMap;
 }
 
-// --- Main function to get and display fixtures ---
-async function getNextGameweekFixtures() {
-    const fixturesListEl = document.getElementById('fixtures-list');
-    const titleEl = document.getElementById('gameweek-title');
-    fixturesListEl.innerHTML = ''; 
+/**
+ * Creates an HTML string for a single fixture block.
+ * @param {object} fixture The fixture object from the API.
+ * @param {Map<number, string>} teamMap Map of team IDs to names.
+ * @returns {string} The HTML string for the fixture.
+ */
+function createFixtureHtml(fixture, teamMap) {
+    const gameweek = fixture.event || 'TBD';
+    const homeTeamId = fixture.team_h;
+    const awayTeamId = fixture.team_a;
+    
+    // Get the pre-calculated FDR and team names
+    const homeFDR = fixture.team_h_difficulty;
+    const awayFDR = fixture.team_a_difficulty;
+    const homeTeamName = teamMap.get(homeTeamId) || `Team ID ${homeTeamId}`;
+    const awayTeamName = teamMap.get(awayTeamId) || `Team ID ${awayTeamId}`;
 
-    // 1. Fetch data from your local proxy endpoint
-    const processedData = await fetchData(PROXY_URL);
-    if (!processedData || processedData.error) {
-        titleEl.textContent = 'Could not load fixtures.';
+    return `
+        <div class="fixture">
+            <h3 class="gameweek">Gameweek ${gameweek}</h3>
+            <div class="matchup">
+                
+                <div class="team home">
+                    <span class="team-name">${homeTeamName} (H)</span>
+                    <span class="fdr-score fdr-${homeFDR}">${homeFDR}</span>
+                </div>
+                
+                <span class="separator">vs</span>
+                
+                <div class="team away">
+                    <span class="team-name">${awayTeamName} (A)</span>
+                    <span class="fdr-score fdr-${awayFDR}">${awayFDR}</span>
+                </div>
+
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Main function to fetch data and render the fixtures.
+ */
+async function renderFixtures() {
+    const container = document.getElementById('fixtures-container');
+    container.innerHTML = '<h2>Fetching data...</h2>'; // Update loading message
+
+    // 1. Fetch data
+    const [bootstrapData, fixturesData] = await Promise.all([
+        getFplData(BOOTSTRAP_ENDPOINT),
+        getFplData(FIXTURES_ENDPOINT)
+    ]);
+
+    if (!bootstrapData || !fixturesData) {
+        container.innerHTML = '<h2>Error loading FPL data. Please try again.</h2>';
         return;
     }
 
-    const { gameweek_id: nextGwId, fixtures: nextGwFixtures } = processedData;
+    // 2. Create Team Map
+    const teamMap = createTeamMap(bootstrapData);
 
-    titleEl.textContent = `Premier League Fixtures: Gameweek ${nextGwId}`;
+    // 3. Filter for upcoming fixtures and generate HTML
+    const upcomingFixturesHtml = fixturesData
+        .filter(fixture => !fixture.started && fixture.finished === false)
+        .sort((a, b) => a.event - b.event) // Sort by Gameweek
+        .map(fixture => createFixtureHtml(fixture, teamMap))
+        .join(''); // Join all the HTML strings together
 
-    if (nextGwFixtures.length === 0) {
-        fixturesListEl.innerHTML = '<p>No upcoming fixtures found for this Gameweek.</p>';
-        return;
-    }
-
-    // 2. Render the pre-processed fixtures
-    nextGwFixtures.forEach(fixture => {
-        
-        const fdrColor = getFDRColor(fixture.fdr);
-
-        // Format the kickoff time
-        const kickoffTime = new Date(fixture.kickoff_time);
-        const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
-        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
-        
-        const dateStr = kickoffTime.toLocaleDateString('en-GB', dateOptions);
-        const timeStr = kickoffTime.toLocaleTimeString('en-GB', timeOptions);
-
-        // Create the HTML element using the simplified structure
-        const fixtureCard = document.createElement('div');
-        fixtureCard.className = 'fixture-card';
-        fixtureCard.innerHTML = `
-            <span class="team-name home-team">${fixture.home_team_name}</span>
-            
-            <div class="match-info">
-                <span class="vs-fdr">vs</span>
-                <span class="location">${fixture.location}</span>
-                <span class="date-time">${dateStr} | ${timeStr}</span>
-            </div>
-            
-            <div class="fdr-container">
-                <span class="fdr-badge" style="background-color: ${fdrColor};">${fixture.fdr}</span>
-            </div>
-            
-            <span class="team-name away-team">${fixture.away_team_name}</span>
-        `;
-        
-        fixturesListEl.appendChild(fixtureCard);
-    });
+    // 4. Insert into the DOM
+    container.innerHTML = upcomingFixturesHtml || '<h2>No upcoming fixtures found.</h2>';
 }
 
-// Execute the function when the page loads
-getNextGameweekFixtures();
+// Execute the main function when the script loads
+renderFixtures();
