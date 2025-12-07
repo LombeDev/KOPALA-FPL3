@@ -1,77 +1,115 @@
-/* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #01ff70; /* FPL green */
-    color: #000;
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
+/* General Layout Changes */
 #fixtures-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 15px;
+    max-width: 1000px; /* Wider container for the table */
+    margin: 20px auto;
+    padding: 0 10px;
 }
 
-/* Fixture Card Styling */
-.fixture {
+/* --- Ticker Table Styles --- */
+.fixture-ticker {
+    width: 100%;
+    border-collapse: collapse; /* Essential for clean table borders */
     background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.95em;
+}
+
+/* Header Styles */
+.fixture-ticker thead {
+    background-color: #f0f0f0;
+}
+
+.fixture-ticker th {
+    padding: 10px 5px;
+    text-align: center;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
 }
 
-.gameweek {
-    font-size: 1.2em;
-    color: #00a653; /* Darker FPL green */
-    border-bottom: 1px solid #eee;
-    padding-bottom: 5px;
-    margin-top: 0;
-    margin-bottom: 10px;
+.team-header {
+    text-align: left;
+    min-width: 120px;
 }
 
-.matchup {
+/* Row and Cell Styles */
+.fixture-ticker tbody tr:nth-child(even) {
+    background-color: #fafafa; /* Subtle striping for readability */
+}
+
+.fixture-ticker td {
+    padding: 2px; /* Reduced padding for compact look */
+    border: 1px solid #eee;
+    height: 40px; /* Ensure uniform height */
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Team Name Cell */
+.team-name-cell {
+    font-weight: bold;
+    padding-left: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.1em;
-    font-weight: bold;
 }
 
-.team {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.separator {
-    color: #666;
-    font-size: 0.9em;
+/* Remove button (based on your image) */
+.remove-btn {
+    color: #999;
     font-weight: normal;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+.remove-btn:hover {
+    color: #f00;
 }
 
-/* FDR Badge Styling */
-.fdr-score {
-    padding: 4px 8px;
-    border-radius: 4px;
-    color: white; /* Text color for the badge */
-    min-width: 20px;
+
+/* --- FDR Block Styles (The core visual element) --- */
+.fdr-block {
+    /* Dimensions and shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 5px 0; /* Vertical padding within the block */
+    box-sizing: border-box; 
+    
+    /* Look and Feel */
+    font-weight: 600;
+    font-size: 0.85em;
+    border-radius: 4px; /* Slightly rounded edges */
     text-align: center;
+    color: white; 
+    
+    /* Center the block within the cell */
+    margin: 0 auto; 
 }
 
-/* Color Coding the FDR */
-.fdr-1 { background-color: #00ff85; } /* Easiest - Bright Green */
-.fdr-2 { background-color: #00f3ff; } /* Easier - Light Blue */
-.fdr-3 { background-color: #ffe800; } /* Neutral - Yellow/Gold */
-.fdr-4 { background-color: #ff9300; } /* Harder - Orange */
-.fdr-5 { background-color: #ff0000; } /* Hardest - Red */
+/* --- Color Coding (Same as before, adapted for the block) --- */
+
+.fdr-1 { 
+    background-color: #00ff85; 
+    color: #000; 
+} 
+
+.fdr-2 { 
+    background-color: #00f3ff;
+    color: #000; 
+} 
+
+.fdr-3 { 
+    background-color: #ffe800;
+    color: #000; 
+} 
+
+.fdr-4 { 
+    background-color: #ff9300;
+} 
+
+.fdr-5 { 
+    background-color: #ff0000;
+}
