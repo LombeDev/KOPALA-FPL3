@@ -1,4 +1,4 @@
-/* Importing a clean, modern font (like Inter or system-ui) */
+/* Importing a clean, modern font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
@@ -36,7 +36,7 @@ body {
     width: 100%;
 }
 
-/* Header Styling */
+/* --- Header Styling --- */
 .header {
     text-align: center;
     margin-bottom: 40px;
@@ -68,7 +68,7 @@ body {
     color: var(--color-text-secondary);
 }
 
-/* Stats Grid for the 4 cards */
+/* --- Stats Grid for the 4 cards --- */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -76,7 +76,7 @@ body {
     margin-bottom: 40px;
 }
 
-/* Individual Card Styling */
+/* --- Individual Card Styling (with Hover) --- */
 .card {
     background-color: var(--color-card-background);
     border: 1px solid var(--color-border);
@@ -85,7 +85,19 @@ body {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* Soft shadow */
     display: flex;
     flex-direction: column;
+    
+    /* Hover Transition */
+    transition: all 0.2s ease-in-out; 
 }
+
+/* Hover Effect for the Cards */
+.card:hover {
+    transform: translateY(-3px); /* Lift the card slightly */
+    /* Enhance the shadow for a clear "pop" effect */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1; /* Subtle border color change */
+}
+
 
 .card-top {
     display: flex;
@@ -96,7 +108,7 @@ body {
 }
 
 .card-icon {
-    /* Style for the SVG icon container */
+    /* Container for the SVG icon */
     width: 30px;
     height: 30px;
     color: var(--color-text-secondary);
@@ -129,7 +141,7 @@ body {
     text-overflow: ellipsis;
 }
 
-/* Chip Usage Section Styling */
+/* --- Chip Usage Section Styling --- */
 .chip-section {
     padding: 30px; /* Slightly more padding for the main section */
 }
@@ -182,10 +194,10 @@ body {
 .chip-progress-bar {
     background-color: var(--color-accent-bar);
     height: 100%;
-    transition: width 0.5s ease-out; /* Smooth animation on load */
+    transition: width 0.5s ease-out; /* Smooth animation on load (handled by JS setting the width) */
 }
 
-/* Responsive adjustments */
+/* --- Responsive adjustments --- */
 @media (max-width: 768px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
