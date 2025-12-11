@@ -10,7 +10,8 @@
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a0b;
+      /* Improved dark background */
+      background: #08080a; 
       color: #fafafa;
       min-height: 100vh;
       padding: 2rem 1rem;
@@ -33,34 +34,38 @@
     .title {
       font-size: 1.875rem;
       font-weight: 700;
-      /* Using solid purple for better contrast */
-      background: #8b5cf6; 
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      /* FIX: Using solid purple for better contrast and visibility */
+      color: #a855f7; 
       margin-bottom: 0.5rem;
     }
     
-    .subtitle { color: #a1a1aa; }
+    .subtitle { 
+      color: #a1a1aa; 
+      font-size: 0.9rem;
+    }
     
     /* --- Grid & Card Styles --- */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      /* Improved responsiveness for smaller screens */
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
     
     .card {
-      background: rgba(39, 39, 42, 0.5);
-      border: 1px solid rgba(63, 63, 70, 0.5);
+      /* Brighter card background for better distinction */
+      background: rgba(39, 39, 42, 0.7);
+      border: 1px solid rgba(63, 63, 70, 0.7);
       border-radius: 0.75rem;
       padding: 1.25rem;
       transition: all 0.3s ease;
+      position: relative;
     }
     
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
     }
     
     .card-header {
@@ -71,20 +76,22 @@
     }
     
     .icon-wrapper {
-      background: rgba(139, 92, 246, 0.1);
-      color: #8b5cf6;
-      padding: 0.5rem;
+      /* Lighter purple background for visibility */
+      background: rgba(168, 85, 247, 0.15);
+      color: #a855f7;
+      padding: 0.6rem;
       border-radius: 0.5rem;
     }
     
-    .icon-wrapper svg { width: 20px; height: 20px; }
+    .icon-wrapper svg { width: 22px; height: 22px; }
     
     .highlight {
       font-size: 0.75rem;
-      border: 1px solid #3f3f46;
-      padding: 0.125rem 0.5rem;
+      border: 1px solid #52525b;
+      padding: 0.125rem 0.6rem;
       border-radius: 9999px;
-      background-color: rgba(63, 63, 70, 0.3);
+      background-color: rgba(82, 82, 91, 0.3);
+      color: #e4e4e7;
     }
     
     .stat-label {
@@ -95,46 +102,55 @@
       margin-bottom: 0.25rem;
     }
     
-    .stat-value { font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
+    .stat-value { 
+      font-size: 1.6rem; 
+      font-weight: 700; 
+      line-height: 1.2; 
+      /* Maximum visibility */
+      color: #ffffff; 
+    }
     
     .stat-subtitle { font-size: 0.875rem; color: #a1a1aa; margin-top: 0.25rem; }
     
     /* --- Chip Section Styles --- */
-    .chip-section { margin-top: 1.5rem; }
+    .chip-section { 
+      margin-top: 2rem; 
+      padding: 1.5rem;
+    }
     
     .chip-title {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 1.125rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
     
-    .chip-title svg { color: #8b5cf6; }
+    .chip-title svg { color: #a855f7; }
     
     .chip-item { margin-bottom: 1rem; }
     
     .chip-row {
       display: flex;
       justify-content: space-between;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       margin-bottom: 0.35rem;
     }
     
     .chip-name { font-weight: 500; }
-    .chip-count { color: #a1a1aa; font-weight: 600; }
+    .chip-count { color: #d4d4d8; font-weight: 600; }
     
     .progress-bar {
-      height: 0.5rem;
-      background: #27272a;
+      height: 0.6rem;
+      background: #3f3f46;
       border-radius: 9999px;
       overflow: hidden;
     }
     
     .progress-fill {
       height: 100%;
-      background: #8b5cf6;
+      background: #a855f7;
       border-radius: 9999px;
       transition: width 0.5s ease;
     }
@@ -161,6 +177,21 @@
       width: 70%;
       margin-bottom: 0.25rem;
     }
+
+    /* --- Media Queries for Mobile Experience --- */
+    @media (max-width: 600px) {
+      .header { margin-bottom: 1.5rem; }
+      .title { font-size: 1.5rem; }
+      .subtitle { font-size: 0.8rem; }
+      .stats-grid { 
+        gap: 0.75rem;
+        /* Stacks vertically on small screens */
+        grid-template-columns: 1fr; 
+      }
+      .card { padding: 1rem; }
+      .stat-value { font-size: 1.4rem; }
+      .chip-title { font-size: 1.1rem; margin-bottom: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -186,16 +217,14 @@
 
   <script>
     // --- API and Utility Constants ---
-    // FIX FOR NETLIFY HOSTING: 
-    // This local path relies on a proxy redirect rule defined in 
-    // your project's root _redirects file to bypass the FPL API's CORS policy.
+    // FIX FOR NETLIFY HOSTING: Using local path for Netlify Proxy Redirect
     const FPL_API_URL = '/api/bootstrap-static/'; 
     
     const statsGrid = document.getElementById('statsGrid');
     const chipBreakdown = document.getElementById('chipBreakdown');
     const gameweekBadge = document.getElementById('gameweekBadge');
 
-    // Re-useable SVG Icons (unchanged)
+    // Re-useable SVG Icons
     const icons = {
       star: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
       trending: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
@@ -203,7 +232,7 @@
       zap: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>'
     };
 
-    // Helper to format large numbers (unchanged)
+    // Helper to format large numbers 
     const formatNumber = (num) => {
       if (num >= 1000000) {
         return (num / 1000000).toFixed(1) + 'M';
@@ -215,10 +244,6 @@
     };
 
     // --- Rendering Functions ---
-
-    /**
-     * Renders a skeleton loading state for the stats grid.
-     */
     const renderStatsSkeleton = () => {
         statsGrid.innerHTML = Array(4).fill().map(() => `
             <div class="card">
@@ -233,12 +258,8 @@
         `).join('');
     };
 
-    /**
-     * Renders the main statistics cards to the DOM.
-     * @param {Array<Object>} stats - Array of stat objects to display.
-     */
     const renderStats = (stats) => {
-      statsGrid.innerHTML = ''; // Clear skeleton
+      statsGrid.innerHTML = ''; 
       stats.forEach(stat => {
         statsGrid.innerHTML += `
           <div class="card">
@@ -254,12 +275,8 @@
       });
     };
 
-    /**
-     * Renders the chip usage breakdown to the DOM.
-     * @param {Array<Object>} chips - Array of chip usage objects.
-     */
     const renderChips = (chips) => {
-      chipBreakdown.innerHTML = ''; // Clear previous content
+      chipBreakdown.innerHTML = ''; 
       if (chips.length === 0) {
         chipBreakdown.innerHTML = '<p class="stat-subtitle">Chip data unavailable or failed to load.</p>';
         return;
@@ -280,13 +297,7 @@
     };
 
     // --- Data Processing Function ---
-
-    /**
-     * Finds the current Gameweek and updates the badge.
-     * @param {Array<Object>} events - The events array from the API.
-     */
     const findCurrentGameweek = (events) => {
-        // Find the current *or* next event if the current one is finished
         const currentEvent = events.find(e => e.is_current || e.is_next);
         if (currentEvent) {
             gameweekBadge.textContent = `Gameweek ${currentEvent.id}`;
@@ -295,31 +306,18 @@
         }
     }
 
-    /**
-     * Processes raw API data to calculate the required statistics.
-     * @param {Object} data - The raw data object from the FPL API.
-     * @returns {Array<Object>} - The formatted array of stat objects.
-     */
     const processFplData = (data) => {
         const players = data.elements;
         const teams = data.teams;
         
-        // Helper to find team name by ID
         const getTeamShortName = (teamId) => {
             const team = teams.find(t => t.id === teamId);
             return team ? team.short_name : 'N/A';
         };
 
-        // 1. Most Bought Player (uses transfers_in_event)
         const mostBought = players.reduce((max, p) => p.transfers_in_event > max.transfers_in_event ? p : max);
-
-        // 2. Top Scorer now uses 'event_points' for accurate Gameweek score
         const topScorer = players.reduce((max, p) => p.event_points > max.event_points ? p : max);
-        
-        // 3. Most Selected/Captained (using selected_by_percent as a proxy for popularity)
         const mostSelected = players.reduce((max, p) => parseFloat(p.selected_by_percent) > parseFloat(max.selected_by_percent) ? p : max);
-
-        // 4. Most Sold Player (uses transfers_out_event)
         const mostSold = players.reduce((max, p) => p.transfers_out_event > max.transfers_out_event ? p : max);
 
         return [
@@ -354,23 +352,15 @@
         ];
     };
 
-
     // --- Main Fetch Function ---
-
-    /**
-     * Fetches data from the FPL API, processes it, and updates the UI.
-     */
     async function getFplData() {
-        // Set the initial loading state (skeletons)
         renderStatsSkeleton();
-        // Set initial chip data state
         renderChips([]);
         gameweekBadge.textContent = 'Loading...';
 
         try {
             const response = await fetch(FPL_API_URL);
             if (!response.ok) {
-                // Clear previous loading state and show the error
                 statsGrid.innerHTML = ''; 
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
